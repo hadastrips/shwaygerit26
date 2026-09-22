@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -63,15 +63,15 @@
         }
 
         /* כפתורי קישורים מהירים */
-        .quick-links {
+        .quick-links-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
         
-        .quick-links a, .quick-links div {
+        .quick-links-row a, .quick-links-row div {
             background-color: var(--primary);
             color: white;
             padding: 8px 14px;
@@ -85,11 +85,11 @@
             transition: background-color 0.2s;
         }
         
-        .quick-links a:hover {
+        .quick-links-row a:hover {
             background-color: var(--secondary);
         }
 
-        .quick-links .info-chip {
+        .quick-links-row .info-chip {
             background-color: var(--tertiary);
             color: var(--secondary);
         }
@@ -267,11 +267,13 @@
     </header>
 
     <!-- Quick Links -->
-    <div class="quick-links">
+    <div class="quick-links-row">
         <a href="https://maps.app.goo.gl/poSVpP4n3Mwp7bUQ9" target="_blank"><i class="fas fa-map-marked-alt"></i> המפה שלכם</a>
         <a href="https://maps.app.goo.gl/hGuAoPEK9XUprrSz6" target="_blank"><i class="fas fa-home"></i> מיקום הלינה</a>
         <a href="https://maps.app.goo.gl/TzMoq2jNrHUFaN5t6" target="_blank"><i class="fas fa-shopping-cart"></i> סופרמרקט</a>
         <a href="https://www.accuweather.com/en/it/carezza/1553748/weather-forecast/1553748" target="_blank"><i class="fas fa-cloud-sun"></i> מזג אוויר קארצה</a>
+    </div>
+    <div class="quick-links-row" style="margin-bottom: 25px;">
         <div class="info-chip"><i class="fas fa-sun"></i> שקיעה: 18:45</div>
         <div class="info-chip"><i class="fas fa-euro-sign"></i> מטבע: יורו</div>
     </div>
@@ -419,6 +421,10 @@
                 <div class="info-row">
                     <i class="far fa-clock"></i>
                     <span>שעות פתיחה: 09:00 - 17:00</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/ztT2XL9MoPshvTac7" target="_blank" class="highlight-link">ניווט למפלי ורונה</a>
                 </div>
             </div>
         </details>
@@ -761,7 +767,7 @@
             <div class="details-content">
                 <div class="info-row">
                     <i class="fas fa-star-of-david"></i>
-                    <span>מנוחה, סיורים רגליים בסמטאות וזמן איכות משפחתי.</span>
+                    <span>מנוחה, סיורים רגליים בסמטאות וזמן איכות משפחתי. אל תשכחו שאתם אוכלות רק כשר ולכן אנו צריכות להביא איתנו אוכל לטיול הרכבות.</span>
                 </div>
             </div>
         </details>
@@ -828,27 +834,27 @@
                 <tr>
                     <td>מפלי ורונה<br><small>(כרטיס משפחתי + ילד נוסף)</small></td>
                     <td>~35 €</td>
-                    <td>~144 ₪</td>
+                    <td>~126 ₪</td>
                 </tr>
                 <tr>
                     <td>רכבל מראן 2000 + מגלשות<br><small>(חישוב ל-5 משלמים ברכבל* + 5 סיבובי מגלשות)</small></td>
                     <td>~138 €</td>
-                    <td>~565 ₪</td>
+                    <td>~497 ₪</td>
                 </tr>
                 <tr>
                     <td>רכבל סשדה<br><small>(גיל 3 חינם)</small></td>
                     <td>259 €</td>
-                    <td>~1,062 ₪</td>
+                    <td>~932 ₪</td>
                 </tr>
             </tbody>
         </table>
-        <p style="margin-top: 10px;"><small>* ייתכן והעלות בפועל תהיה נמוכה יותר במידה וילד בן 3 פטור מתשלום גם ברכבל מראן 2000. עלות הש"ח מחושבת לפי שער המרה מוערך של 4.1 ש"ח ליורו.</small></p>
+        <p style="margin-top: 10px;"><small>* ייתכן והעלות בפועל תהיה נמוכה יותר במידה וילד בן 3 פטור מתשלום גם ברכבל מראן 2000. עלות הש"ח מחושבת לפי שער המרה מוערך של 3.6 ש"ח ליורו.</small></p>
     </div>
 
     <!-- Footer -->
     <footer>
         <div class="footer-line1">כל הזכויות שמורות להדס טרכטר - יועצת טיולים בארץ ובעולם 050-5685356</div>
-        <div class="footer-line2">אין להעביר ללא אישור מפורש.<br>העובר על כך עובר על גזל לפי דין תורה וחוקי המקום</div>
+        <div class="footer-line2">אין להעביר ללא אישור מפורש. העובר על כך עובר על גזל לפי דין תורה וחוקי המקום</div>
     </footer>
 
 </body>
