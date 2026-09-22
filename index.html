@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שווייגר בצפון איטליה</title>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* פלטת צבעים מבוקשת */
+            --primary: #17a2b8; /* טורקיז */
+            --secondary: #8b4513; /* חום */
+            --tertiary: #8fbc8f; /* ירוק בהיר */
+            
+            --bg-color: #f7f9fa; /* אפור/בהיר עדין */
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #eeeeee;
+        }
+
+        body {
+            font-family: 'Assistant', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px 15px;
+            box-sizing: border-box;
+            direction: rtl;
+        }
+
+        /* הדר ולוגו */
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .logo {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        
+        .main-title {
+            color: var(--primary);
+            font-size: 26px;
+            font-weight: 700;
+            margin: 10px 0 5px;
+            background-color: transparent;
+        }
+        
+        .sub-title {
+            color: var(--secondary);
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            background-color: transparent;
+        }
+
+        /* כפתורי קישורים מהירים */
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .quick-links a, .quick-links div {
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.2s;
+        }
+        
+        .quick-links a:hover {
+            background-color: var(--secondary);
+        }
+
+        .quick-links .info-chip {
+            background-color: var(--tertiary);
+            color: var(--secondary);
+        }
+
+        /* כרטיסיות הימים */
+        .day-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+            overflow: hidden;
+            border-top: 6px solid var(--tertiary);
+        }
+        
+        .day-header {
+            background: rgba(143, 188, 143, 0.15); /* רקע ירוק בהיר שקוף */
+            padding: 15px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--secondary);
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* חלוניות נפתחות (Accordion) */
+        details {
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        details:last-child {
+            border-bottom: none;
+        }
+        
+        summary {
+            padding: 15px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            list-style: none; /* הסתרת החץ המקורי */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--primary);
+            transition: background-color 0.2s;
+        }
+        
+        /* תמיכה בדפדפנים מסוימים להסתרת החץ המקורי */
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        
+        /* החץ המותאם אישית - מתהפך בפתיחה באמצעות CSS בלבד */
+        summary .fa-chevron-down {
+            color: var(--secondary);
+            transition: transform 0.3s ease;
+            font-size: 14px;
+        }
+        
+        details[open] summary .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        
+        details[open] summary {
+            background-color: rgba(23, 162, 184, 0.05); /* רקע עדין טורקיז בעת פתיחה */
+        }
+
+        /* תוכן החלונית */
+        .details-content {
+            padding: 0 15px 15px 15px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        
+        .info-row i {
+            color: var(--primary);
+            margin-top: 5px;
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .info-row span, .info-row a {
+            flex: 1;
+        }
+        
+        .highlight-link {
+            color: var(--secondary);
+            font-weight: bold;
+            text-decoration: underline;
+            display: inline-block;
+        }
+
+        /* טבלת עלויות */
+        .cost-table-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px 15px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border-top: 6px solid var(--primary);
+        }
+        
+        .cost-table-container h3 {
+            color: var(--primary);
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        .cost-table-container p {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        th {
+            background-color: rgba(23, 162, 184, 0.1);
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        /* חתימה / Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-bottom: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        
+        .footer-line1 {
+            color: var(--primary);
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .footer-line2 {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <img src="1.jpg" alt="Logo" class="logo">
+        <h1 class="main-title">שווייגר בצפון איטליה</h1>
+        <h2 class="sub-title">4/10-11/10/26</h2>
+    </header>
+
+    <!-- Quick Links -->
+    <div class="quick-links">
+        <a href="https://maps.app.goo.gl/poSVpP4n3Mwp7bUQ9" target="_blank"><i class="fas fa-map-marked-alt"></i> המפה שלכם</a>
+        <a href="https://maps.app.goo.gl/hGuAoPEK9XUprrSz6" target="_blank"><i class="fas fa-home"></i> מיקום הלינה</a>
+        <a href="https://maps.app.goo.gl/TzMoq2jNrHUFaN5t6" target="_blank"><i class="fas fa-shopping-cart"></i> סופרמרקט</a>
+        <a href="https://www.accuweather.com/en/it/carezza/1553748/weather-forecast/1553748" target="_blank"><i class="fas fa-cloud-sun"></i> מזג אוויר קארצה</a>
+        <div class="info-chip"><i class="fas fa-sun"></i> שקיעה: 18:45</div>
+        <div class="info-chip"><i class="fas fa-euro-sign"></i> מטבע: יורו</div>
+    </div>
+
+    <!-- יום 1 -->
+    <div class="day-card">
+        <div class="day-header">יום ראשון 4/10 - המראה</div>
+        
+        <details>
+            <summary>16:00 הגעה לשדה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-info-circle"></i>
+                    <span>יש לבדוק מראש מאיזה טרמינל הטיסה יוצאת.</span>
+                </div>
+            </div>
+        </details>
+        
+        <details>
+            <summary>19:00 המראה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-plane-departure"></i>
+                    <span>טיסה נעימה!</span>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>22:00 נחיתה באיטליה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-plane-arrival"></i>
+                    <span>ברוכים הבאים!</span>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>23:00 לינה ליד השדה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-bed"></i>
+                    <span>לילה טוב והתארגנות ליום המחרת.</span>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום 2 -->
+    <div class="day-card">
+        <div class="day-header">יום שני 5/10 - אגם גארדה והסביבה</div>
+        
+        <details>
+            <summary>8:30 איסוף רכב מהשדה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-car"></i>
+                    <span>איסוף הרכב מחברת ההשכרה.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-cloud"></i>
+                    <a href="https://www.accuweather.com/en/it/riva-del-garda/1705/weather-forecast/1705" target="_blank" class="highlight-link">תחזית מזג אוויר ריבה דל גארדה</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>9:30 יוצאים לדרך <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-route"></i>
+                    <span>נסיעה לכיוון האגם.</span>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>12:00-14:00 העיירה לימונה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-info-circle"></i>
+                    <span>עיירה קסומה עם מטעי לימון עתיקים ותוצרת מקומית סביב הלימון. המלצה: לבחור בין לימונה לריבה דל גארדה.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-parking"></i>
+                    <a href="https://maps.app.goo.gl/zVNVPCf8LdygPz567" target="_blank" class="highlight-link">ניווט לחניה לימונה</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/tgSSssQF5Q3j1m2L7" target="_blank" class="highlight-link">ניווט למרכז העיירה</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-walking"></i>
+                    <a href="https://maps.app.goo.gl/wvXGx7p7d2iELub56" target="_blank" class="highlight-link">טיילת לימונה</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-bridge-water"></i>
+                    <a href="https://maps.app.goo.gl/9zfvxMUbPRtFvkAa7" target="_blank" class="highlight-link">השביל התלוי מעל המים</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-parking"></i>
+                    <a href="https://maps.app.goo.gl/VoXzZUYprLeVPjsW8" target="_blank" class="highlight-link">ניווט לחניה לשביל התלוי</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>12:30-14:30 ריבה דל גארדה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-info-circle"></i>
+                    <span>עיירה יפהפייה בצפון אגם גארדה עם טירה, מפרץ ונוף הררי דרמטי. מקום נהדר לפיקניק צהריים.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-ship"></i>
+                    <span>ניתן לשכור סירה במקום.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-parking"></i>
+                    <a href="https://maps.app.goo.gl/rpSiTdXSTuUjbphx8" target="_blank" class="highlight-link">ניווט לחניה</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-leaf"></i>
+                    <a href="https://maps.app.goo.gl/JELudBwi4L4KbEHz5" target="_blank" class="highlight-link">ניווט לגנים היפים</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-umbrella-beach"></i>
+                    <a href="https://maps.app.goo.gl/xzJnQ32GE2CBdUCN6" target="_blank" class="highlight-link">חוף ריבה דל גארדה (כניסה חופשית)</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>15:00-16:30 מפלי ורונה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-water"></i>
+                    <span>מפלים מרשימים עם גנים בוטנים ייחודיים.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-euro-sign"></i>
+                    <span>עלות כניסה: 7 יורו למבוגר. כרטיס משפחתי (זוג+3) 28 יורו.</span>
+                </div>
+                <div class="info-row">
+                    <i class="far fa-clock"></i>
+                    <span>שעות פתיחה: 09:00 - 17:00</span>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>17:00 תצפית אגם גארדה (אופציונלי) <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-camera"></i>
+                    <span>ללא הליכה, עצירה קצרה מול הנוף המרשים.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/Ar4uuPAwEUxnYkn99" target="_blank" class="highlight-link">ניווט לנקודת התצפית</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>19:00 קניות והגעה לוילה בקארצה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span>סופר ענק להצטיידות ראשונית בדרך לוילה. לילה טוב!</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/q9zmaU6GQvSf7dyq5" target="_blank" class="highlight-link">ניווט לסופר</a>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום 3 -->
+    <div class="day-card">
+        <div class="day-header">יום שלישי 6/10 - אקשן, כיף והליכה</div>
+        
+        <details>
+            <summary>9:30 יוצאים לדרך <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-cloud"></i>
+                    <a href="https://www.accuweather.com/en/it/merano/216207/weather-forecast/216207?type=locality&city=merano" target="_blank" class="highlight-link">תחזית מזג אוויר מראנו</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>10:30-14:30 רכבל מראן 2000 <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-tram"></i>
+                    <span>עליה ברכבל סגור לתחנה העליונה למגוון פעילויות כיפיות לילדים ונוף. מגלשות הרים מעגלית, טרמפולינות, מסלולי עץ. מומלץ פיקניק צהריים מול הנוף.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-euro-sign"></i>
+                    <span>עלות רכבל: 27 יורו מבוגר, 19 יורו ילד. מגלשות הרים: 6 יורו לאחד / 27 יורו ל-5 סיבובים.</span>
+                </div>
+                <div class="info-row">
+                    <i class="far fa-clock"></i>
+                    <span>שעות פתיחה: 09:00 - 17:00</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-parking"></i>
+                    <a href="https://maps.app.goo.gl/j1qaSSj5cfNUxT2K8" target="_blank" class="highlight-link">ניווט לחניה</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/4XXEYyrEgQqBd4Qy6" target="_blank" class="highlight-link">ניווט לרכבל</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-video"></i>
+                    <a href="https://www.meran2000.com/en/info/webcams/" target="_blank" class="highlight-link">מצלמות לייב מההר</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>15:30-18:00 אגם Wuhnleger <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-hiking"></i>
+                    <span>מסלול הליכה לאגם קטן וצלול עם הרים נישאים ברקע. כ-40 דק' הליכה לכל כיוון, כ-250 מטר עליה. שילוט ברור במקום לכיוון Wuhnleger. כניסה וחניה חופשית.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-parking"></i>
+                    <a href="https://maps.app.goo.gl/yqgUgKxPqgBejSoy5" target="_blank" class="highlight-link">ניווט לחניה</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/pjkqmpqatCGpdgxT7" target="_blank" class="highlight-link">ניווט לאגם</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>18:30 חזרה לדירה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-home"></i>
+                    <span>חזרה להתאוששות ומנוחה. לילה טוב!</span>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום 4 -->
+    <div class="day-card">
+        <div class="day-header">יום רביעי 7/10 - פסגות הדולומיטים</div>
+        
+        <details>
+            <summary>9:30 יוצאים לדרך <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-cloud"></i>
+                    <a href="https://www.accuweather.com/en/it/st-ulrich/1-216217_1_al/weather-forecast/1-216217_1_al?type=locality" target="_blank" class="highlight-link">תחזית מזג אוויר אורטיזיי</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>10:30-14:00 רכבל סשדה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-mountain"></i>
+                    <span>הרכבל הכי יפה בדולומיטים! עליה בשני רכבלים סגורים עד לפסגת סשדה. מסלול מומלץ: תחנת הרכבל העליונה – בקתת סופי – בקתת טרוייר וחזרה. מומלץ פיקניק צהריים מול הנוף.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-euro-sign"></i>
+                    <span>עלות: 74 יורו למבוגר. ילד (8-16) 37 יורו. מתחת לגיל 8 חינם.</span>
+                </div>
+                <div class="info-row">
+                    <i class="far fa-clock"></i>
+                    <span>שעות פתיחה: 08:30 - 17:30. חניה: 5 יורו לשעה.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-parking"></i>
+                    <a href="https://maps.app.goo.gl/NaT9LQq7JYmLMtqg9" target="_blank" class="highlight-link">ניווט לחניה</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/3w4mm3CeHQV62Nnv7" target="_blank" class="highlight-link">ניווט לרכבל</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-video"></i>
+                    <a href="https://www.seceda.it/en/webcam" target="_blank" class="highlight-link">מצלמות לייב סשדה</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>14:30-17:00 מונטה פאנה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-tree"></i>
+                    <span>עליה עם הרכב לנופים של מונטה פאנה. מגרש משחקים כיפי, כניסה חופשית. מסלול הליכה קליל (כשעה), מעגלי, מיצגים יפים מול הנוף.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-parking"></i>
+                    <a href="https://maps.app.goo.gl/LLu9rPw4WDa2oM2t7" target="_blank" class="highlight-link">ניווט לחניה</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-child"></i>
+                    <a href="https://maps.app.goo.gl/urhU9AFEUgRnYnW98" target="_blank" class="highlight-link">ניווט למגרש משחקים</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-walking"></i>
+                    <a href="https://maps.app.goo.gl/bMfyLx27ARMtaEhQ9" target="_blank" class="highlight-link">ניווט למסלול הליכה קליל</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>18:00 עצירה מול הנוף (אופציונלי) <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-camera"></i>
+                    <span>עצירה מול אגם קטן מול ההרים, ממש על הדרך.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/FBobwZFNY3PqC8we8" target="_blank" class="highlight-link">ניווט לנקודת הנוף</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>19:00 חזרה לדירה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-moon"></i>
+                    <span>לילה טוב!</span>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום 5 -->
+    <div class="day-card">
+        <div class="day-header">יום חמישי 8/10 - מעבר הרים, עמקים ויופי</div>
+        
+        <details>
+            <summary>9:30 יוצאים לדרך <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-cloud"></i>
+                    <a href="https://www.accuweather.com/en/it/san-martino-di-castrozza/2546091/weather-forecast/2546091?type=locality&city=san%20martino%20di%20castrozza" target="_blank" class="highlight-link">תחזית מזג אוויר סן מרטינו</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>10:30-13:00 עמק ונג'יה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-hiking"></i>
+                    <span>מסלול הליכה קליל ויפהפה בתוך העמק, לצד נחל זורם. מסלול מוצע: חניון Pian dei Casoni - מלגה ונג'יה - מלגה ונג'יוטה - ובחזרה לחניון (אפשר לחזור באותה דרך או מעגלי מהצד השני).</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-parking"></i>
+                    <a href="https://maps.app.goo.gl/fsAVHaw8hUhhMdKL7" target="_blank" class="highlight-link">ניווט לחניה</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/UzRPrv11mefBZj897" target="_blank" class="highlight-link">ניווט לעמק</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>13:00-14:00 מעבר הרים רולה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-road"></i>
+                    <span>מעבר הרים יפהפה, דרך מפותלת בגובה כ-2000 מטר. מפרצי חניה לאורך הדרך לנופים וצילומים.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/CgiesAK9n3BDKDyHA" target="_blank" class="highlight-link">ניווט למעבר רולה</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>14:00-16:00 סן מרטינו <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-child"></i>
+                    <span>מתחם משחקים יפה מול הנוף ואגם קטן, כניסה חופשית. מקום אידיאלי לפיקניק צהריים מול הנוף.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/PBp9WwKPTdFjU75i6" target="_blank" class="highlight-link">ניווט למקום</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>16:00-18:00 נסיעה חזרה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-car"></i>
+                    <span>חזרה במעבר רולה לקארצה, מומלץ לשים לב לא לנהוג מאוחר מידי בחושך.</span>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>18:00-18:30 אגם קארצה (אופציונלי) <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-water"></i>
+                    <span>אגם קטן בצבע טורקיז יפהפה בדרך חזרה.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/ZPnP1rDSic6hoQV19" target="_blank" class="highlight-link">ניווט לאגם קארצה</a>
+                </div>
+            </div>
+        </details>
+        
+        <details>
+            <summary>19:00 חזרה לדירה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-suitcase"></i>
+                    <span>זמן אריזות והתארגנות לעזיבה. לילה טוב!</span>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום 6 -->
+    <div class="day-card">
+        <div class="day-header">יום שישי 9/10 - יורדים לונציה</div>
+        
+        <details>
+            <summary>9:00 יוצאים לדרך <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-car"></i>
+                    <span>נסיעה דרומה לכיוון ונציה.</span>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>13:00 הגעה לונציה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-info-circle"></i>
+                    <span>מומלץ לחנות במסטרה ולקחת רכבת כ-10 דק' נסיעה לונציה, או להזמין חניה מראש בכניסה לעיר.</span>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-ticket-alt"></i>
+                    <a href="https://parclick.com/parking-venice/autorimessa_comunale_avm?affiliate=5b32238d" target="_blank" class="highlight-link">הזמנת חניה מראש בונציה</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-parking"></i>
+                    <a href="https://maps.app.goo.gl/G38d1L6UbcMqZEmz6" target="_blank" class="highlight-link">ניווט לחניה ונציה</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-utensils"></i>
+                    <a href="https://maps.app.goo.gl/gEJvZQXeSrUju8t87" target="_blank" class="highlight-link">ניווט למסעדת גם גם (כשר)</a>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-synagogue"></i>
+                    <a href="https://maps.app.goo.gl/75Sh16hevNTm6eib9" target="_blank" class="highlight-link">ניווט לבית חב"ד ונציה</a>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום 7 -->
+    <div class="day-card">
+        <div class="day-header">שבת 10/10 - ונציה</div>
+        
+        <details>
+            <summary>שבת שלום! <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-star-of-david"></i>
+                    <span>מנוחה, סיורים רגליים בסמטאות וזמן איכות משפחתי.</span>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום 8 -->
+    <div class="day-card">
+        <div class="day-header">יום ראשון 11/10 - חוזרים לארץ</div>
+        
+        <details>
+            <summary>7:00 יוצאים לדרך למלפנסה מילאנו <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://maps.app.goo.gl/xmBqQ3mY8Umxomr39" target="_blank" class="highlight-link">ניווט לשדה התעופה מלפנסה</a>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>10:00 הגעה למלפנסה <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-car"></i>
+                    <span>החזרת רכב בחברת ההשכרה.</span>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>13:00 טיסה לארץ <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-plane"></i>
+                    <span>המראה מטרמינל 1, טיסה בטוחה!</span>
+                </div>
+            </div>
+        </details>
+
+        <details>
+            <summary>18:00 ברוכים השבים <i class="fas fa-chevron-down"></i></summary>
+            <div class="details-content">
+                <div class="info-row">
+                    <i class="fas fa-heart"></i>
+                    <span>נחיתה בארץ, מקווה שנהניתם!</span>
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <!-- טבלת עלויות מרוכזת -->
+    <div class="cost-table-container">
+        <h3>ריכוז עלויות כניסה לאתרים</h3>
+        <p>תחשיב מותאם למשפחה: זוג + 4 ילדים (גילאי 14, 11, 9, 3)</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>שם אתר</th>
+                    <th>עלות ביורו (סה"כ)</th>
+                    <th>עלות בש"ח (הערכה)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>מפלי ורונה<br><small>(כרטיס משפחתי + ילד נוסף)</small></td>
+                    <td>~35 €</td>
+                    <td>~144 ₪</td>
+                </tr>
+                <tr>
+                    <td>רכבל מראן 2000 + מגלשות<br><small>(חישוב ל-5 משלמים ברכבל* + 5 סיבובי מגלשות)</small></td>
+                    <td>~138 €</td>
+                    <td>~565 ₪</td>
+                </tr>
+                <tr>
+                    <td>רכבל סשדה<br><small>(גיל 3 חינם)</small></td>
+                    <td>259 €</td>
+                    <td>~1,062 ₪</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 10px;"><small>* ייתכן והעלות בפועל תהיה נמוכה יותר במידה וילד בן 3 פטור מתשלום גם ברכבל מראן 2000. עלות הש"ח מחושבת לפי שער המרה מוערך של 4.1 ש"ח ליורו.</small></p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-line1">כל הזכויות שמורות להדס טרכטר - יועצת טיולים בארץ ובעולם 050-5685356</div>
+        <div class="footer-line2">אין להעביר ללא אישור מפורש.<br>העובר על כך עובר על גזל לפי דין תורה וחוקי המקום</div>
+    </footer>
+
+</body>
+</html>
